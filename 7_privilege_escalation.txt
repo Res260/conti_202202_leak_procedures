@@ -1,0 +1,1 @@
+A stack of manuals on elevating privileges. Those who do not know English well, translate here deepl.com https://github.com/S1ckB0y1337/Active-Directory-Exploitation-Cheat-Sheet#active-directory-exploitation-cheat-sheet `

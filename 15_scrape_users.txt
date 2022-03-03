@@ -1,0 +1,14 @@
+I'll tell you another moment about ad_users, there is a lot of information about employees, there you can find techies, engineers, etc. We usually need ad_users when we want to find the admin's machines, because on the admin's machines we can find passwords for the antivirus console, for cloud backups, and so on.
+Now I will throw off the USER HUNTER manual, with the help of it, we find these hosts. We also need ad_users to take the SID from there, for the golden ticket, but more on that later
+1. we make a list of targets
+1.1 Open the admin_users, look for someone who is potentially interesting to us there: admin / engineer / inform technologists / IT, take the logins of the accounts from sAMAccountName
+1.2 Take the list of domain admins
+1.3 Put in a file list.txt the first and second
+2. We will create a power view.
+2.1 powershell-import _/home/user/soft/powerview/view.ps1_
+2.1 --comment: import power view from /home/user/soft/powerview/view.ps1
+2.3 Turn on hunting
+2.3.1 psinject 1884 x64 Invoke-UserHunter -Threads 20 -UserFile C:\ProgramData\list.txt >> C:\ProgramData\out.txt
+      instead of 1884 - the PID of the process where we have enough rights to make an injection. x64 - or x86-bitness of the process. see the tasklist in the c\programdata\sheet.txt should be a list that we did in item #1.
+      After 5-10-20 minutes, watch the file size of out.txt.
+      As soon as it finishes, it immediately fills the file all at once. That is, if the file is 0byte, it means that it works or the AV has deleted it (if the av deleted it, you will see it in cobalt)

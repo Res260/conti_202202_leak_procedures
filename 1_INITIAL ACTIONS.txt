@@ -1,0 +1,15 @@
+INITIAL ACTIONS
+
+1) Extracting from AD - allows us to find out how many servers and work stations are on the network, as well as information about users, who has what position, etc., after withdawing from AD, we sort only what we need - we'll show you later
+2) Extracting from shares (sharfinder) - with it, we look where we have access with this user (to other PCs)
+3) Kerberos attack - pulls hashes from under memory, with successful extraction and successful hash - The admin domain is provided to us
+4) If we have system rights, with the help of the "hashdump" and "logonpasswords" command, we can pull off hashes and mimikatz and we will already have the domain user password, and it happens that the admin domain is also
+5) If we found the login and hash of the admin domain and we could not crack the hash, we do this command pth Domain\Admin pass (in the form of a hash), using the shell dir \\ip or hostname command \c$ let's check access to the server or workstations
+6) If we found the login/pass domain of the admin or user, we can put on his token, the command looks like this make_token Domain\Admin Pass , if you want to remove the token, the rev2self command
+7) If there is a system process in the session, using the getsystem command, you can raise the system rights to the session, point (4) :) Also do not forget to watch the processes using the ps command, you can find the user there, migrate to his process > Explore > Process list > then select the user process (the user must be different, not the one on the session) and click inject, select the SSL listener
+9) After migrating to the new user, you also need to extract from the shares to see where with him you can break through
+10) When you extract information from the shares, then at the end of extraction to the directory C:\ProgramData and there lies sh.txt or shares.txt, download, look at how many "remote admin" there are in the textbox, if there is more than one, it means that there is access to another computer
+11) Click on the session > File Browser > write the path \\ IP or hostname of the computer to which there is access \c$, we put the payload there, I'll give it out later
+12) The launch of the payload depends on its exe or dll format, after the launch I will personally explain
+13) Ping the servers and work stations so, we need p.bat, I'll throw it into the group. We create a txt, we call it domains.txt, we put the hostnames of servers or workshops there. Hostnames are taken from the information extracted from AD, using scripts, we will show them how to use
+14) If you find some kind of password, you can also run it through smb_login - this is a command in metasploit, I will issue a metasploit and tell you how to use it. smb_login will show which servers or workstation have access to these creds

